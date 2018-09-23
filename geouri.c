@@ -36,6 +36,14 @@
 
 #include "geouri.h"
 
+/* TODO:
+   - Use a better variant than strreplacefmt
+     for example from libgawen (and update pidgin-pbar).
+   - Have a better geo URI parsing funciton.
+   - Have a better description for the location message (perhaps use an UTF-8 symbol).
+   - Load defaults URI formats from a file in /usr/share, select the first line as default.
+*/
+
 #ifndef UNUSED
 /* avoid warnings about unused variables */
 # define UNUSED(x) (void)(x)
@@ -139,9 +147,7 @@ static struct geouri * parse_geouri(struct geouri *geo, char *msg)
 {
   if(strncmp(msg, "geo:", strlen("geo:")))
     return NULL; /* parse error */
-
   msg += strlen("geo:");
-  msg++;
 
   geo->latitude = msg;
 
@@ -168,9 +174,13 @@ static struct geouri * parse_geouri(struct geouri *geo, char *msg)
 
     return geo;
   }
-  else if (*msg == ';') {
+  else if(*msg == ';') {
     *msg = '\0';
     msg++;
+
+    if(strncmp(msg, "u=", strlen("u=")))
+      return NULL;
+    msg += strlen("u=");
 
     geo->uncertainty = msg;
 

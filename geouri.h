@@ -30,7 +30,7 @@
 #define stringify(s) _stringify(s)
 
 #define MAJOR_VERSION 0
-#define MINOR_VERSION 2
+#define MINOR_VERSION 3
 
 #define VERSION stringify(MAJOR_VERSION) "." stringify(MINOR_VERSION)
 
