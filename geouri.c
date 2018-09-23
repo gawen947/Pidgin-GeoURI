@@ -23,6 +23,7 @@
  */
 
 #define PURPLE_PLUGINS
+#define _POSIX_C_SOURCE 200809L
 
 #include <string.h>
 #include <ctype.h>
